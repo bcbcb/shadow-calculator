@@ -1,0 +1,20 @@
+{
+  "name": "2014-12-solo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bcbcb/2014-12-solo",
+  "authors": [
+    "bcbcb <bcbcb@users.noreply.github.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.9",
+    "d3": "~3.5.3"
+  }
+}
