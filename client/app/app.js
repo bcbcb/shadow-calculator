@@ -81,39 +81,30 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
   return length;
 };
 
+// TESTS
+// var today = new Date();
+// var hour = today.getHours();
+// var lat = 37.7833;
+// var lon = -122.4167;
+// var tz = -8;
 
-var today = new Date();
-var hour = today.getHours();
-var lat = 37.7833;
-var lon = -122.4167;
-var tz = -8;
+// for (var i =7; i <18; i++) {
+//   var d = new Date(2015, 0, 19, i, 0, 0,0);
+//   calculateShadow(1, d, lat, lon, tz, i);
+// }
 
-for (var i =7; i <18; i++) {
-  var d = new Date(2015, 0, 19, i, 0, 0,0);
-  calculateShadow(1, d, lat, lon, tz, i);
-}
-
+// =================================================================================================
+//           A N G U L A R
+// =================================================================================================
+//
 
 var app = angular.module('shadow', []);
 
 app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, $http, Data) {
 
-  $scope.day = new Date().toString();
+  $scope.data = Data;
 
-  $scope.address;
-
-  $scope.getCoordinates = function () {
-    console.log('clickk');
-    $http.post('https://maps.google.com/maps/api/geocode', { address: $scope.address } )
-      .success( function (data)  {
-        $scope.lat = data;
-      });
-  };
-
-  var testTime = new Date(2014, 0, 19, 11, 0,0,0);
-
-  $scope.testTime = testTime.toString();
-  $scope.shadowLength = calculateShadow(1, testTime, 37, -122, -8);
+  console.log(d3)
 
 
 }]);
@@ -123,8 +114,8 @@ app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, 
 app.factory('Times', function TimesFactory() {
   var times = [];
   var day = new Date();
-  var startHour = 6;
-  var endHour   = 12 + 7; 
+  var startHour = 7;
+  var endHour   = 12 + 6; 
   var minutes = [0, 15, 30, 45];
 
   for (var hour = startHour; hour < endHour + 1; hour++) {
@@ -135,6 +126,7 @@ app.factory('Times', function TimesFactory() {
   return times;
 });
 
+// Generate shadow data 
 app.factory('Data', ['Times', function DataFactory(Times) {
   data = {};
 
@@ -145,6 +137,37 @@ app.factory('Data', ['Times', function DataFactory(Times) {
     };
   });
 
-  console.log(data);
+  // console.log(data);
   return data;
+}]);
+
+
+
+
+
+
+// D3
+// ====================
+
+
+
+app.directive('shadowChart', ['Data', function ChartDirective(Data) {
+  return {
+    restrict: 'E',
+    scope: {},
+    link: function (scope, element, attrs) {
+      console.log(element);
+      var data = Data;
+      var chart = d3.select(element[0]);
+      chart.append("div").attr("class", "chart")
+        .selectAll('div')
+        .data(data).enter().append("div")
+        .transition()
+        .duration(5000)
+        .ease("elastic")
+        .style("width", function(d) { return d.shadow  * 20 + "%"; })
+        .style("background-color", "#222")
+        .text(function(d) { return d.time.getHours() ; });
+    }
+  };
 }]);

@@ -33,3 +33,5 @@ npm-debug.log
 
 ### Bower ###
 bower_components
+
+.DS_Store

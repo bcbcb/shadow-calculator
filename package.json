@@ -23,6 +23,7 @@
     "suncalc": "^1.6.0"
   },
   "devDependencies": {
+    "gulp-concat": "^2.4.3",
     "gulp-livereload": "^3.4.0"
   }
 }
