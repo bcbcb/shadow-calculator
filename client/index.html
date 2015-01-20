@@ -16,7 +16,7 @@
 <div ng-controller="ShadowController">
 
 <form class="form-inline">
-<input type="text" class="form-control" ng-model="selectedDate" ng-change="getDate()"name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
+<input type="text" class="form-control datepicker" ng-model="selectedDate" ng-change="getDate()"name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
 </form>
 
 <h1>{{ sliderValue | date: 'h:mma' | lowercase }}</h1>
@@ -37,14 +37,14 @@
 <img src="assets/Human_outline.svg" class="person" /> 
 <img src="assets/Human_outline.svg" class="shadow" 
 style="transform: rotate(0deg) scaleY( {{shadowLength}}) skewX(0deg)" /> 
-<!-- <shadow-chart> -->
-<!-- 
-<div ng-repeat="times in data">
+<shadow-chart>
+ 
+<!-- <div ng-repeat="times in data">
   {{ times.time | date: 'hh:mma' | lowercase }}
   <span style="display:inline-block; width:{{ times.shadow * 50 }}; height: 1em; background-color: #999">{{ times.shadow | number: 2 }}x</span>
 </div>
 
--->
+ -->
 
 </div>
 

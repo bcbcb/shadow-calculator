@@ -81,17 +81,6 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
   return length;
 };
 
-// TESTS
-// var today = new Date();
-// var hour = today.getHours();
-// var lat = 37.7833;
-// var lon = -122.4167;
-// var tz = -8;
-
-// for (var i =7; i <18; i++) {
-//   var d = new Date(2015, 0, 19, i, 0, 0,0);
-//   calculateShadow(1, d, lat, lon, tz, i);
-// }
 
 // =================================================================================================
 //           A N G U L A R
@@ -102,7 +91,7 @@ var app = angular.module('shadow', ['mgcrea.ngStrap', 'ui.bootstrap-slider']);
 
 app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, $http, Data) {
 
-  // $scope.data = Data; // For testing calculations
+  $scope.data = Data; // For testing calculations
   var now = new Date();
 
   $scope.selectedDate = now;
@@ -165,9 +154,6 @@ app.factory('Data', ['Times', function DataFactory(Times) {
 
 
 
-
-
-
 // D3
 // ====================
 
@@ -178,7 +164,6 @@ app.directive('shadowChart', ['Data', function ChartDirective(Data) {
     restrict: 'E',
     scope: {},
     link: function (scope, element, attrs) {
-      console.log(element);
       var data = Data;
       var chart = d3.select(element[0]);
       chart.append("div").attr("class", "chart")
@@ -187,10 +172,30 @@ app.directive('shadowChart', ['Data', function ChartDirective(Data) {
         .transition()
         .duration(5000)
         .ease("elastic")
-        .style("width", function(d) { return d.shadow  * 20 + "%"; })
-        .style("background-color", "#222")
+        .style("width", function(d) { return d.shadow  * 10 + "%"; })
+        .style("background-color", "#000")
+        .style("opacity", 0.4)
         .text(function(d) { return d.time.getHours() ; });
     }
   };
 }]);
+
+
+
+// GEOLOCATION
+// ===========================
+
+var getLocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else { 
+        // x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+};
+
+var getCoordinates = function (position) {
+  console.log( position.coords.latitude ,  position.coords.longitude );
+};
+
+getLocation();
 
