@@ -98,14 +98,36 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
 // =================================================================================================
 //
 
-var app = angular.module('shadow', []);
+var app = angular.module('shadow', ['mgcrea.ngStrap', 'ui.bootstrap-slider']);
 
 app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, $http, Data) {
 
-  $scope.data = Data;
+  // $scope.data = Data; // For testing calculations
+  var now = new Date();
 
-  console.log(d3)
+  $scope.selectedDate = now;
 
+  $scope.timeRange = {
+    min: +new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0 ,0),
+    max: +new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 0, 0 ,0),
+    step: 1000 * 60,
+  };
+
+  $scope.shadowLength = $scope.shadowLength || 1;
+
+  $scope.getShadowLength = function (value, event) {
+    $scope.shadowLength = calculateShadow(1, new Date(value), 37, -122, -8);
+  };
+
+  // date stuff
+
+  $scope.getDate = function () {
+    var day = $scope.selectedDate;
+    $scope.timeRange = {
+      min: +new Date(day.getFullYear(), day.getMonth(), day.getDate(), 6, 0, 0 ,0),
+      max: +new Date(day.getFullYear(), day.getMonth(), day.getDate(), 18, 0, 0 ,0)
+    };
+  };
 
 }]);
 
@@ -171,3 +193,4 @@ app.directive('shadowChart', ['Data', function ChartDirective(Data) {
     }
   };
 }]);
+

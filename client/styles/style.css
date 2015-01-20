@@ -1,0 +1,36 @@
+body {
+  font-family: Arial;
+  font-size: 14px;
+  background-color: #ddd;
+  color: #444;
+  margin: 20px;
+  letter-spacing: -0.04em;
+  text-align:center;
+
+}
+
+.slider.slider-horizontal {
+  width: 80%;
+}
+
+.person, .shadow {
+  position: absolute;
+  height: 500px;
+  left: 50px;
+  bottom: 50px;
+  z-index: -1;
+}
+
+.person {
+}
+
+.shadow {
+  opacity: 0.25;
+  transform-origin: bottom left;
+  margin-bottom: 10px;
+  /*-webkit-filter: blur(5px);*/
+}
+
+.time-slider {
+  tooltip: none;
+}
