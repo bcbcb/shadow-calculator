@@ -78,7 +78,11 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
     length = 0;
   }
   // console.log(i, result.azimuth.toFixed(3), result.altitude.toFixed(3), length.toFixed(3));
-  return length;
+  return {
+    length: length,
+    azimuth: result.azimuth,
+    altitude: result.altitude
+  };
 };
 
 
@@ -105,7 +109,10 @@ app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, 
   $scope.shadowLength = $scope.shadowLength || 1;
 
   $scope.getShadowLength = function (value, event) {
-    $scope.shadowLength = calculateShadow(1, new Date(value), 37, -122, -8);
+    var result = calculateShadow(1, new Date(value), 37, -122, -8);
+    $scope.shadowLength = result.length;
+    $scope.altitude = result.altitude;
+    $scope.azimuth = result.azimuth;
   };
 
   // date stuff
@@ -185,17 +192,21 @@ app.directive('shadowChart', ['Data', function ChartDirective(Data) {
 // GEOLOCATION
 // ===========================
 
-var getLocation = function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getCoordinates);
-    } else { 
-        // x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-};
 
-var getCoordinates = function (position) {
-  console.log( position.coords.latitude ,  position.coords.longitude );
-};
+app.factory('Geolocation', function(Geolocation) {
+  var getLocation = function() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(getCoordinates);
+      } else { 
+          // x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+  };
 
-getLocation();
+  var getCoordinates = function (position) {
+    console.log( position.coords.latitude ,  position.coords.longitude );
+  };
+
+});
+
+
 

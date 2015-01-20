@@ -15,11 +15,15 @@
 
 <div ng-controller="ShadowController">
 
-<form class="form-inline">
-<input type="text" class="form-control datepicker" ng-model="selectedDate" ng-change="getDate()"name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
-</form>
+<div class="datepicker">
+  <form class="">
+  <input type="text" class="form-control" ng-model="selectedDate" ng-change="getDate()"name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
+  </form>
+</div>
 
-<h1>{{ sliderValue | date: 'h:mma' | lowercase }}</h1>
+<div class="time"><span>{{ sliderValue | date: 'h:mma' | lowercase }}</span></div>
+
+<div class="geo">{{ lattitude }} {{ longitude }} </div>
 
 <slider class="time-slider" ng-model="sliderValue" 
   min="timeRange.min" 
@@ -32,11 +36,17 @@
 </slider>
 
 
-<h2>{{ shadowLength | number:1 }}x </h2>
+<div class="results">
+  <span class="length">Length: {{ shadowLength | number:1 }}x</span>
+  <span class="azimuth">Azimuth: {{ azimuth | number: 0 }}</span>
+  <span class="altitude">Altitude: {{ altitude | number: 0 }}</span>
+
+</div>
 
 <img src="assets/Human_outline.svg" class="person" /> 
 <img src="assets/Human_outline.svg" class="shadow" 
 style="transform: rotate(0deg) scaleY( {{shadowLength}}) skewX(0deg)" /> 
+
 <shadow-chart>
  
 <!-- <div ng-repeat="times in data">
