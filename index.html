@@ -8,8 +8,34 @@
 
 <h1></h1>
 
+
+
 <div ng-controller="ShadowController">
+
+<input type="text" ng-model="address">
+<button ng-click="getCoordinates()">Enter</button>
 <pre>
+
+
+
+Lat: {{ lat }}
+Lon: {{ lon }}
+
+Time: {{ testTime }}
+
+Your shadow is {{ shadowLength }} times your height
+</pre>
+
+</div>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/d3/d3.min.js"></script>
+<script src="suncalc.js"></script>
+
+<script src="app.js"></script>
+</body>
+
+</html>
+
 <!-- Test Data 
 Time  Azimuth Altitude Shadow
 07:25 115.663 RISE  -
@@ -24,14 +50,4 @@ Time  Azimuth Altitude Shadow
 16:00 231.609 12.481  4.518
 17:00 241.698 2.584 22.156
 17:18 244.484 SET - -->
-</pre>
 
-</div>
-
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/d3/d3.min.js"></script>
-
-<script src="app.js"></script>
-</body>
-
-</html>

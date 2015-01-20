@@ -1,9 +1,4 @@
-angular.module('shadow', [])
-.controller('ShadowController', function($scope) {
 
-  // $scope.shadowLength
-  $scope.day = new Date().toString();
-});
 
 var calcSunPosition = function ( day, plat, plon, gmtdiff, azimuth, altitude ) {
 
@@ -82,9 +77,10 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
   } else {
     length = 0;
   }
-  console.log(i, result.azimuth.toFixed(3), result.altitude.toFixed(3), length.toFixed(3));
+  // console.log(i, result.azimuth.toFixed(3), result.altitude.toFixed(3), length.toFixed(3));
   return length;
 };
+
 
 var today = new Date();
 var hour = today.getHours();
@@ -98,12 +94,57 @@ for (var i =7; i <18; i++) {
 }
 
 
-if ("geolocation" in navigator) {
+var app = angular.module('shadow', []);
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    console.log(position.coords.latitude, position.coords.longitude);
+app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, $http, Data) {
+
+  $scope.day = new Date().toString();
+
+  $scope.address;
+
+  $scope.getCoordinates = function () {
+    console.log('clickk');
+    $http.post('https://maps.google.com/maps/api/geocode', { address: $scope.address } )
+      .success( function (data)  {
+        $scope.lat = data;
+      });
+  };
+
+  var testTime = new Date(2014, 0, 19, 11, 0,0,0);
+
+  $scope.testTime = testTime.toString();
+  $scope.shadowLength = calculateShadow(1, testTime, 37, -122, -8);
+
+
+}]);
+
+
+// Make array of times with 15 minute intervals
+app.factory('Times', function TimesFactory() {
+  var times = [];
+  var day = new Date();
+  var startHour = 6;
+  var endHour   = 12 + 7; 
+  var minutes = [0, 15, 30, 45];
+
+  for (var hour = startHour; hour < endHour + 1; hour++) {
+    for (var i = 0; i < 4; i++) {
+      times.push( new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour, minutes[i]) );
+    }
+  }
+  return times;
+});
+
+app.factory('Data', ['Times', function DataFactory(Times) {
+  data = {};
+
+  data = Times.map( function (time) {
+    return {
+      time: time,
+      shadow: calculateShadow(1, time, 37, -122, -8)
+    };
   });
 
-} else {
-  console.log('no geo');
-}
+  console.log(data);
+  return data;
+}]);

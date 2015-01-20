@@ -19,7 +19,8 @@
   "dependencies": {
     "express": "^4.11.0",
     "gulp": "^3.8.10",
-    "gulp-watch": "^3.0.0"
+    "gulp-watch": "^3.0.0",
+    "suncalc": "^1.6.0"
   },
   "devDependencies": {
     "gulp-livereload": "^3.4.0"

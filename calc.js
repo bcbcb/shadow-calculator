@@ -1,3 +1,6 @@
+
+// http://www.stjarnhimlen.se/comp/tutorial.html#5
+
 /*
 This code was created by Anton the user of planetcalc.com online service.
 The code is distributed under Creative Commons Attribution/Share-Alike License 3.0 (Unported) (by-sa).
