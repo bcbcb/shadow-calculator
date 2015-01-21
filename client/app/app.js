@@ -1,5 +1,4 @@
 
-
 var calcSunPosition = function ( day, plat, plon, gmtdiff, azimuth, altitude ) {
 
   function to360range( num ) {
@@ -91,11 +90,17 @@ var calculateShadow = function ( h, day, lat, lon, timeZone, i ) {
 // =================================================================================================
 //
 
-var app = angular.module('shadow', ['mgcrea.ngStrap', 'ui.bootstrap-slider']);
+var app = angular.module('shadow', ['mgcrea.ngStrap', 'ui.bootstrap-slider', 'geolocation']);
 
-app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, $http, Data) {
+app.controller('ShadowController', ['$scope', '$http', 'Times', 'geolocation', function($scope, $http, Times, geolocation) {
 
-  $scope.data = Data; // For testing calculations
+  geolocation.getLocation().then(function(data){
+    $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    console.log($scope.coords);
+  });
+
+
+  $scope.data = Times; // For testing calculations
   var now = new Date();
 
   $scope.selectedDate = now;
@@ -123,41 +128,38 @@ app.controller('ShadowController', ['$scope', '$http', 'Data', function($scope, 
       min: +new Date(day.getFullYear(), day.getMonth(), day.getDate(), 6, 0, 0 ,0),
       max: +new Date(day.getFullYear(), day.getMonth(), day.getDate(), 18, 0, 0 ,0)
     };
+
   };
+
+
 
 }]);
 
 
 // Make array of times with 15 minute intervals
 app.factory('Times', function TimesFactory() {
-  var times = [];
-  var day = new Date();
-  var startHour = 7;
-  var endHour   = 12 + 6; 
-  var minutes = [0, 15, 30, 45];
+  var startHour = 6;
+  var endHour   = 12 + 5; 
+  var minutes = [0, 30];
 
-  for (var hour = startHour; hour < endHour + 1; hour++) {
-    for (var i = 0; i < 4; i++) {
-      times.push( new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour, minutes[i]) );
+  var getTimes = function (day) {
+    var times = [];
+    for (var hour = startHour; hour < endHour + 1; hour++) {
+      for (var i = 0; i < 2; i++) {
+        times.push( new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour, minutes[i]) );
+      }
     }
-  }
-  return times;
+
+    return times.map( function (t) {
+      return {
+        time: t,
+        shadow: calculateShadow(1, t, 37, -122, -8).length
+     };
+    });
+
+  };
+  return getTimes;
 });
-
-// Generate shadow data 
-app.factory('Data', ['Times', function DataFactory(Times) {
-  data = {};
-
-  data = Times.map( function (time) {
-    return {
-      time: time,
-      shadow: calculateShadow(1, time, 37, -122, -8)
-    };
-  });
-
-  // console.log(data);
-  return data;
-}]);
 
 
 
@@ -166,23 +168,34 @@ app.factory('Data', ['Times', function DataFactory(Times) {
 
 
 
-app.directive('shadowChart', ['Data', function ChartDirective(Data) {
+app.directive('shadowChart', ['Times', '$filter', function ChartDirective(Times, $filter) {
   return {
     restrict: 'E',
-    scope: {},
+    scope: true,
     link: function (scope, element, attrs) {
-      var data = Data;
+
+      var data = Times(scope.selectedDate);
       var chart = d3.select(element[0]);
-      chart.append("div").attr("class", "chart")
+
+      scope.$watch('selectedDate', function (value) {
+        data = Times(scope.selectedDate);
+        chart.select("div").remove();
+        chart.append("div").attr("class", "chart")
         .selectAll('div')
         .data(data).enter().append("div")
         .transition()
-        .duration(5000)
+        .duration(1000)
         .ease("elastic")
-        .style("width", function(d) { return d.shadow  * 10 + "%"; })
+        .style("width", "4%")
+        .style("height", function(d) { return d.shadow  * 10 + '%' ; })
         .style("background-color", "#000")
         .style("opacity", 0.4)
-        .text(function(d) { return d.time.getHours() ; });
+        .style("float", "left")
+        .style("margin", "1px")
+        .text(function(d) { return $filter('date')(d.time, 'hh:mm a') ; });
+      });
+
+      
     }
   };
 }]);
@@ -191,22 +204,3 @@ app.directive('shadowChart', ['Data', function ChartDirective(Data) {
 
 // GEOLOCATION
 // ===========================
-
-
-app.factory('Geolocation', function(Geolocation) {
-  var getLocation = function() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(getCoordinates);
-      } else { 
-          // x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-  };
-
-  var getCoordinates = function (position) {
-    console.log( position.coords.latitude ,  position.coords.longitude );
-  };
-
-});
-
-
-

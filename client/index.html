@@ -17,13 +17,13 @@
 
 <div class="datepicker">
   <form class="">
-  <input type="text" class="form-control" ng-model="selectedDate" ng-change="getDate()"name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
+  <input type="text" class="form-control" ng-model="selectedDate" ng-change="getDate()" name="date" data-autoclose="1" data-date-format="yyyy-MM-dd" bs-datepicker>
   </form>
 </div>
 
 <div class="time"><span>{{ sliderValue | date: 'h:mma' | lowercase }}</span></div>
 
-<div class="geo">{{ lattitude }} {{ longitude }} </div>
+<div class="geo">{{ coords.lat | number: 2 }} {{ coords.long | number: 2 }} </div>
 
 <slider class="time-slider" ng-model="sliderValue" 
   min="timeRange.min" 
@@ -61,13 +61,13 @@ style="transform: rotate(0deg) scaleY( {{shadowLength}}) skewX(0deg)" />
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/d3/d3.min.js"></script>
 
 <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-
+<script src="bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 
 
 <script src="app/services/slider.js"></script>

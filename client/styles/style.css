@@ -71,3 +71,8 @@ body {
 .time-slider {
   padding: 1em 0;
 }
+
+.geo {
+  font-size: 1.5em;
+  transition: 1s;
+}
