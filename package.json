@@ -21,10 +21,17 @@
     "express": "^4.11.0",
     "gulp": "^3.8.10",
     "gulp-watch": "^3.0.0",
-    "suncalc": "^1.6.0"
+    "suncalc": "^1.6.0",
+    "bower": "0.6.x"
   },
   "devDependencies": {
     "gulp-concat": "^2.4.3",
     "gulp-livereload": "^3.4.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
