@@ -5,13 +5,13 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
   <link rel="stylesheet" href="styles/style.css">
-
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,800,400' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 
 
-<!-- <h1>Shadow Calculator</h1> -->
+<span class="header">Shadow Calculator</span>
 
 <div ng-controller="ShadowController">
 
@@ -23,7 +23,12 @@
 
 <div class="time"><span>{{ sliderValue | date: 'h:mma' | lowercase }}</span></div>
 
-<div class="geo">{{ coords.lat | number: 2 }} {{ coords.long | number: 2 }} </div>
+<div class="geo">Location: {{ coords.lat | number: 2 }} {{ coords.long | number: 2 }} <a href="#">change location</a></div>
+
+<div class="results">
+  <span class="azimuth">Azimuth: {{ azimuth | number: 0 }}</span>
+  <span class="altitude">Altitude: {{ altitude | number: 0 }}</span>
+</div>
 
 <slider class="time-slider" ng-model="sliderValue" 
   min="timeRange.min" 
@@ -36,11 +41,9 @@
 </slider>
 
 
-<div class="results">
-  <span class="length">Length: {{ shadowLength | number:1 }}x</span>
-  <span class="azimuth">Azimuth: {{ azimuth | number: 0 }}</span>
-  <span class="altitude">Altitude: {{ altitude | number: 0 }}</span>
 
+<div class="shadow-length">
+  <span>Shadow Multiplier:</span><br /><span class="length">{{ shadowLength | number:2 }}x</span>
 </div>
 
 <img src="assets/Human_outline.svg" class="person" /> 

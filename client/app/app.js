@@ -186,13 +186,18 @@ app.directive('shadowChart', ['Times', '$filter', function ChartDirective(Times,
         .transition()
         .duration(1000)
         .ease("elastic")
-        .style("width", "4%")
-        .style("height", function(d) { return d.shadow  * 10 + '%' ; })
-        .style("background-color", "#000")
-        .style("opacity", 0.4)
+        .attr("class", "test")
+        .style("width", "3.85%")
+        .style("height", function(d) { return d.shadow  * 5 + '%' ; })
+        .style("background-color", "#999")
+        .style("color", "#222")
         .style("float", "left")
         .style("margin", "1px")
-        .text(function(d) { return $filter('date')(d.time, 'hh:mm a') ; });
+        .style("z-index", "-10")
+        .style("font-size", "0.9em")
+        .style("font-weight", "400")
+        .style("text-align", "center")
+        .text(function(d) { return $filter('date')(d.time, 'h:mm a') + '(' + $filter('number')(d.shadow, 1) + 'x)'; });
       });
 
       
@@ -200,7 +205,3 @@ app.directive('shadowChart', ['Times', '$filter', function ChartDirective(Times,
   };
 }]);
 
-
-
-// GEOLOCATION
-// ===========================

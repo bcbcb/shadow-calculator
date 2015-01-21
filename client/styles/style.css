@@ -5,12 +5,13 @@
 }
 
 body {
-  font-family: Arial;
+  font-family: 'Open Sans', Arial;
   font-size: 12px;
-  background-color: #ddd;
+  background-color: #dddedf;
   color: #444;
   margin: 10px 30px;
   letter-spacing: -0.04em;
+  font-weight: 200;
 }
 
 .slider.slider-horizontal {
@@ -22,14 +23,14 @@ body {
   height: 500px;
   left: 50px;
   bottom: 50px;
-  z-index: -1;
+  z-index: 10;
 }
 
 .person {
 }
 
 .shadow {
-  opacity: 0.3;
+  opacity: 0.5;
   transform-origin: bottom left;
   margin-bottom: 10px;
   /*-webkit-filter: blur(5px);*/
@@ -57,6 +58,7 @@ body {
 
 .results {
   font-size: 1.5em;
+  top:10px;
 }
 
 .time {
@@ -66,13 +68,42 @@ body {
   display: block;
   position: relative;
   float:left;
+  margin-right: 2em;
 }
 
 .time-slider {
   padding: 1em 0;
+  z-index: 100;
 }
 
 .geo {
   font-size: 1.5em;
   transition: 1s;
+}
+
+.shadow-length {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  text-align: center;
+  margin: 0;
+  font-size: 1.5em;
+}
+.length {
+  font-size: 4.5em;
+  font-weight: bold;
+  letter-spacing: -.05em;
+  text-shadow: 0 0 #000;
+  line-height: 0.8em;
+  text-transform: uppercase;
+    text-shadow: 5px 5px 0 #aaa;
+
+}
+
+.header {
+  font-size: 6em;
+  font-weight: 800;
+  letter-spacing: -.1em;
+  text-transform: uppercase;
+  text-shadow: 5px 5px 0 #aaa;
 }
