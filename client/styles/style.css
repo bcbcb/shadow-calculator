@@ -90,13 +90,13 @@ body {
   font-size: 1.5em;
 }
 .length {
-  font-size: 4.5em;
+  font-size: 6em;
   font-weight: bold;
   letter-spacing: -.05em;
   text-shadow: 0 0 #000;
   line-height: 0.8em;
   text-transform: uppercase;
-    text-shadow: 5px 5px 0 #aaa;
+  text-shadow: 5px 5px 0 #aaa;
 
 }
 
