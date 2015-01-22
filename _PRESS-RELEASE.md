@@ -19,10 +19,11 @@
   "We calculate it so you don't have to...go outside"
 
 ## How to Get Started ##
-  Open the site
-
-## Customer Quote ##
-  "Amazing"
+```
+npm install
+bower install
+node server.js
+```
 
 ## Closing and Call to Action ##
   Try it out
