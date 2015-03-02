@@ -17,8 +17,8 @@
     "angular": "~1.3.9",
     "d3": "~3.5.3",
     "angular-strap": "~2.1.6",
-    "ngGeolocation": "~0.0.7",
-    "angular-geolocation": "*",
-    "angularjs-geolocation": "~0.1.1"
+    "angularjs-geolocation": "~0.1.1",
+    "seiyria-bootstrap-slider": "~4.5.1",
+    "angular-bootstrap-slider": "~0.1.1"
   }
 }

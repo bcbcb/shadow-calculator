@@ -30,8 +30,7 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-
-### Bower ###
-bower_components
+# bower.json needs to be fixed, but bower_components works, so let's commit that for now
+# bower_components
 
 .DS_Store
