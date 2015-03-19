@@ -20,4 +20,4 @@ bower install
 node server.js
 ```
 
-Built using Angular sliders and D3.js
+Built using Angular and D3.js in less than 2 days for my Hack Reactor MVP solo project
